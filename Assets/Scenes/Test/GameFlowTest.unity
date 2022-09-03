@@ -320,6 +320,10 @@ MonoBehaviour:
   y: 15
   z: 25
   isThirdPerson: 0
+  isSmallView: 0
+  isWaterView: 0
+  smallViewMat: {fileID: 2100000, guid: 9d9d33c571dcba041ba17cd7e92b4d7f, type: 2}
+  waterViewMat: {fileID: 2100000, guid: 2c3e2b6f10bd6654ea29d97960285a9c, type: 2}
 --- !u!114 &15134040
 MonoBehaviour:
   m_ObjectHideFlags: 0
