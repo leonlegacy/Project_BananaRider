@@ -5,19 +5,25 @@ using UnityEngine;
 
 public class VechleDurity : MonoBehaviour
 {
-    public int life = 100;
+    public float life = 100;
 
     public event Action LifeBecomeZero;
+    private bool playerRide = false;
+
 
     private void Update()
     {
-        if (life <= 0)
+        if (playerRide)
         {
-            LifeBecomeZero?.Invoke();
-        }
-        else
-        {
-            life -= 1;
-        }
+            if (life <= 0)
+            {
+                LifeBecomeZero?.Invoke();
+            }
+            else
+            {
+                life -= Time.deltaTime;
+            }
+        }  
     }
+
 }
