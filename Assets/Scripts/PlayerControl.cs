@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+
 using UnityEngine.UI;
 
 public class PlayerControl : MonoBehaviour
@@ -88,4 +89,5 @@ public class PlayerControl : MonoBehaviour
             toRight = 0;
         }
     }
+
 }
