@@ -10,8 +10,24 @@ public class CameraFollowScript : MonoBehaviour
     [SerializeField]
     Vector3 offset;
 
+    [SerializeField]
+    Vector3 tpsOffset;
+
+    PlayerControl playerController;
+    bool isThirdPerson = false;
+
+    private void Start()
+    {
+        //playerController
+    }
+
     private void Update()
     {
-        transform.position = new Vector3(0, player.position.y + 5.5f, player.position.z - 6.5f) + offset; 
+        if (isThirdPerson)
+        {
+
+        }
+        else
+            transform.position = new Vector3(0, player.position.y + 5.5f, player.position.z - 6.5f) + offset; 
     }
 }
