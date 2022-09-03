@@ -24,8 +24,6 @@ public partial class PlayerControl : MonoBehaviour
     [SerializeField]
     Text debugText;
 
-    [SerializeField]
-    float scanTimer = 2f;
 
     float horizonForce = 0;
     bool canApply = false;
@@ -47,20 +45,18 @@ public partial class PlayerControl : MonoBehaviour
         horizonForce -= GetToLeft();
         horizonForce += GetToRight();
 
-        Vector3 direction = (transform.right * horizonForce + transform.forward * forwardForce);
+        Vector3 direction = (transform.right * horizonForce * forceScale + transform.forward * forwardForce);
         rigi.velocity = new Vector3(direction.x * Time.deltaTime, rigi.velocity.y, direction.z);
 
         GetMouseStatus();
         ShowDebugger();
-        //rigi.AddForce(Vector3.forward * forwardForce);
+        Debug.Log(rigi.velocity);
     }
 
     private void FixedUpdate()
     {
-        float force = horizonForce * forceScale;
-        rigi.AddForce(Vector3.right * force);
-        MousePunishment();
-
+        //float force = horizonForce * forceScale;
+        //rigi.AddForce(Vector3.right * force);
     }
 
     float GetToLeft()
@@ -89,7 +85,7 @@ public partial class PlayerControl : MonoBehaviour
         return _force;
     }
 
-    void GetMouseStatus()
+    void GetMouseStatus()   //Check if the mouse has clicked
     {
         if (Input.GetButton("Fire1")) canApply = true;
         if (Input.GetButtonUp("Fire1"))
@@ -98,14 +94,14 @@ public partial class PlayerControl : MonoBehaviour
         }
     }
 
-    void MousePunishment()
+    void MousePunishment()  //Punishment for moving the mouse
     {
         float mx = Input.GetAxis("Mouse X");
         if(canPunish)
             rigi.AddForce(Vector3.right * mx * mousePenalty * Random.Range(0.5f, 20f));
     }
 
-    void ShowDebugger()
+    void ShowDebugger() //Debug UI function
     {
         debugText.text = //"L = " + toLeft.ToString() + "\n" +
                         //"R = " + toRight.ToString() + "\n" +
@@ -113,7 +109,7 @@ public partial class PlayerControl : MonoBehaviour
                         "canApply = " + canApply;
     }
 
-    IEnumerator SetPunishable()
+    IEnumerator SetPunishable() //Not in use
     {
         yield return new WaitForSeconds(1);
 
@@ -123,5 +119,10 @@ public partial class PlayerControl : MonoBehaviour
     public float GetHorizontalForce()
     {
         return horizonForce * forceScale;
+    }
+
+    public float GetForwardForce()
+    {
+        return forwardForce;
     }
 }
