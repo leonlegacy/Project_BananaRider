@@ -20,7 +20,7 @@ public class GameManager : MonoBehaviour
 
     private bool isGameEnd = false;
 
-    private Dictionary<VehicleDurity, Coroutine> vehicleCoroutiineDic = new Dictionary<VehicleDurity, Coroutine>();
+    private Dictionary<VehicleDurity, Coroutine> vehicleCoroutineDic = new Dictionary<VehicleDurity, Coroutine>();
 
     private void Awake()
     {
@@ -86,9 +86,11 @@ public class GameManager : MonoBehaviour
         var vehicle = go.GetComponent<VehicleDurity>();
         vehicle.Init(player.GetForwardForce());
         vehicle.lifeBecomeZero += fail;
+        vehicle.BeRideEvent += vehicleDecheck;
+        vehicle.DisrideEvent += vehicleDecheck;
 
         var corutine = StartCoroutine(vehicleCheck(vehicle));
-        vehicleCoroutiineDic.Add(vehicle, corutine);
+        vehicleCoroutineDic.Add(vehicle, corutine);
     }
 
     private IEnumerator vehicleCheck(VehicleDurity vehicle)
@@ -104,13 +106,19 @@ public class GameManager : MonoBehaviour
 
         vehicle.ChangeForceRate(10);
 
-        vehicleCoroutiineDic.Remove(vehicle);
+        vehicleCoroutineDic.Remove(vehicle);
     }
 
-    private void rideVehicle(VehicleDurity vehicle)
+    private void vehicleDecheck(VehicleDurity vehicle)
     {
-        vehicleCoroutiineDic.Remove(vehicle);
-
+        if (vehicleCoroutineDic.TryGetValue(vehicle, out var cor))
+        {
+            if(cor != null)
+            {
+                StopCoroutine(cor);
+            }
+            vehicleCoroutineDic.Remove(vehicle);
+        }
     }
 
     private void fail()

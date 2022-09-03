@@ -8,6 +8,7 @@ public class VehicleDurity : MonoBehaviour
     public event Action lifeBecomeZero;
     public event Action<float> changeLife;
     public event Action<VehicleDurity> BeRideEvent;
+    public event Action<VehicleDurity> DisrideEvent;
 
     public float maxLife = 100;
     public float life { get; private set; }
@@ -60,6 +61,7 @@ public class VehicleDurity : MonoBehaviour
 
         if ( playerRide == false)
         {
+            DisrideEvent?.Invoke(this);
             Destroy(gameObject);
         }
         else
