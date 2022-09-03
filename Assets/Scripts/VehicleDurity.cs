@@ -16,6 +16,9 @@ public class VehicleDurity : MonoBehaviour
     private Collider collider;
     private Rigidbody rigidbody;
 
+    private float forwardForce;
+    private float forceRate = 2;
+
     private void Awake()
     {
         collider = GetComponent<Collider>();
@@ -30,6 +33,7 @@ public class VehicleDurity : MonoBehaviour
             if (life <= 0)
             {
                 lifeBecomeZero?.Invoke();
+                Destroy(gameObject);
             }
             else
             {
@@ -37,6 +41,17 @@ public class VehicleDurity : MonoBehaviour
                 changeLife?.Invoke(life);
             }
         }  
+    }
+
+    private void FixedUpdate()
+    {
+        Vector3 direction = transform.forward * forwardForce * forceRate;
+        rigidbody.velocity = new Vector3(0, rigidbody.velocity.y, direction.z);
+    }
+
+    public void Init(float forwardForce)
+    {
+        this.forwardForce = forwardForce;
     }
 
     public void ChangePlayerRide(bool value)

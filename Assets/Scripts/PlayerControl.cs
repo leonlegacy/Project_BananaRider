@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
 using UnityEngine.UI;
 
 public partial class PlayerControl : MonoBehaviour
@@ -50,13 +49,13 @@ public partial class PlayerControl : MonoBehaviour
 
         GetMouseStatus();
         ShowDebugger();
-        Debug.Log(rigi.velocity);
     }
 
     private void FixedUpdate()
     {
         //float force = horizonForce * forceScale;
         //rigi.AddForce(Vector3.right * force);
+        MousePunishment();
     }
 
     float GetToLeft()
