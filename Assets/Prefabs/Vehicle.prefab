@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 785647381776041296}
   - component: {fileID: 5571284277926168012}
   m_Layer: 0
-  m_Name: Vechle
+  m_Name: Vehicle
   m_TagString: Vechle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
