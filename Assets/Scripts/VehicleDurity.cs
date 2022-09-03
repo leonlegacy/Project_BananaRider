@@ -5,9 +5,9 @@ using UnityEngine;
 
 public class VehicleDurity : MonoBehaviour
 {
-
     public event Action lifeBecomeZero;
     public event Action<float> changeLife;
+    public event Action<VehicleDurity> BeRideEvent;
 
     public float maxLife = 100;
     public float life { get; private set; }
@@ -66,6 +66,12 @@ public class VehicleDurity : MonoBehaviour
         {
             collider.enabled = false;
             rigidbody.isKinematic = true;
+            BeRideEvent?.Invoke(this);
         }
+    }
+
+    public void ChangeForceRate(float rate)
+    {
+        forceRate = rate;
     }
 }
