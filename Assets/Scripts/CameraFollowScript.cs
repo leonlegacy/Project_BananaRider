@@ -13,21 +13,47 @@ public class CameraFollowScript : MonoBehaviour
     [SerializeField]
     Vector3 tpsOffset;
 
-    PlayerControl playerController;
+    [SerializeField]
+    float smoothSpeed = 0.125f;
+
+    [SerializeField]
+    float y = 15f;
+
+    [SerializeField]
+    float z = 25f;
+
+    [SerializeField]
     bool isThirdPerson = false;
 
-    private void Start()
-    {
-        //playerController
-    }
+    Vector3 desiredPosition;
 
     private void Update()
     {
+        if (Input.GetKeyDown(KeyCode.R)) isThirdPerson = !isThirdPerson;
+
         if (isThirdPerson)
         {
+            float h = Input.GetAxis("H");
 
+            desiredPosition = player.position + tpsOffset;
+            transform.localRotation = transform.localRotation * Quaternion.Euler(0, h * Time.deltaTime * y, h * Time.deltaTime * z);
         }
         else
-            transform.position = new Vector3(0, player.position.y + 5.5f, player.position.z - 6.5f) + offset; 
+        {
+            transform.localRotation = Quaternion.Euler(26f, 0f, 0f);
+            desiredPosition = new Vector3(0, player.position.y, player.position.z) + offset;
+        }
+
+    }
+
+    private void FixedUpdate()
+    {
+        Vector3 smoothedPosition = Vector3.Lerp(transform.position, desiredPosition, smoothSpeed);
+        transform.position = smoothedPosition;
+    }
+
+    public void SetThirdPersonCamera(bool _state)
+    {
+        isThirdPerson = _state;
     }
 }
