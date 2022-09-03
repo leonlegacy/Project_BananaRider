@@ -28,6 +28,13 @@ public class GameManager : MonoBehaviour
         endPoint.hitFinishLine += pass;
 
         productTime = productTimes[timeIndex];
+
+    }
+
+    private void Start()
+    {
+        var vehicle = FindObjectOfType<VehicleDurity>();
+        player.Ride(vehicle);
     }
 
     private void Update()

@@ -13,9 +13,13 @@ public class VehicleDurity : MonoBehaviour
     public float life { get; private set; }
     public bool playerRide { get; private set; }
 
+    private Collider collider;
+    private Rigidbody rigidbody;
 
-    private void Start()
+    private void Awake()
     {
+        collider = GetComponent<Collider>();
+        rigidbody = GetComponent<Rigidbody>();
         life = maxLife;
     }
 
@@ -35,13 +39,18 @@ public class VehicleDurity : MonoBehaviour
         }  
     }
 
-    private void ChangePlayerRide(bool value)
+    public void ChangePlayerRide(bool value)
     {
         playerRide = value;
 
         if ( playerRide == false)
         {
             Destroy(gameObject);
+        }
+        else
+        {
+            collider.enabled = false;
+            rigidbody.isKinematic = true;
         }
     }
 }
