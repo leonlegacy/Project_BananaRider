@@ -16,6 +16,8 @@ public class GameManager : MonoBehaviour
     private float productTime;
     private int timeIndex = 0;
 
+    private bool isGameEnd = false;
+
     private void Awake()
     {
         player = FindObjectOfType<PlayerControl>();
@@ -37,6 +39,7 @@ public class GameManager : MonoBehaviour
     {
         var vehicle = FindObjectOfType<VehicleDurity>();
         player.Ride(vehicle);
+        vehicle.lifeBecomeZero += fail;
     }
 
     private void Update()
@@ -66,15 +69,34 @@ public class GameManager : MonoBehaviour
 
         var vehicle = go.GetComponent<VehicleDurity>();
         vehicle.Init(player.GetForwardForce());
+        vehicle.lifeBecomeZero += fail;
+
+        StartCoroutine(vehicleCheck(vehicle));
+    }
+
+    private IEnumerator vehicleCheck(VehicleDurity vehicle)
+    {
+        //TODO:
+        yield return null;
     }
 
     private void fail()
     {
+        if (isGameEnd) { return; }
         resultUI.Show(false);
+        gameEndHandle();
     }
 
     private void pass()
     {
+        if (isGameEnd) { return; }
         resultUI.Show(true);
+        gameEndHandle();
+    }
+
+    private void gameEndHandle()
+    {
+        isGameEnd = true;
+        player.enabled = false;
     }
 }
