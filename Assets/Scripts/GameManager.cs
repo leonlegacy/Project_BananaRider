@@ -8,6 +8,8 @@ public class GameManager : MonoBehaviour
     private float[] productTimes = new float[3];
     [SerializeField]
     private ResultUI resultUI;
+    [SerializeField]
+    private GameObject[] sampleVehicles;
 
     private PlayerControl player;
 
@@ -54,7 +56,16 @@ public class GameManager : MonoBehaviour
 
     private void productVehicle()
     {
-        //TODO
+        var pos = player.transform.position;
+        pos.x = Random.Range(-10f, 10f);
+        pos.y += 2;
+        pos.z -= 5;
+
+        var go = sampleVehicles[Random.Range(0, sampleVehicles.Length)];
+        go = Instantiate(go, pos, player.transform.rotation);
+
+        var vehicle = go.GetComponent<VehicleDurity>();
+        vehicle.Init(player.GetForwardForce());
     }
 
     private void fail()
