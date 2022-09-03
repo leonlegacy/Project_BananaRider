@@ -18,6 +18,8 @@ public class GameManager : MonoBehaviour
 
     private bool isGameEnd = false;
 
+    private Dictionary<VehicleDurity, Coroutine> vehicleCoroutiineDic = new Dictionary<VehicleDurity, Coroutine>();
+
     private void Awake()
     {
         player = FindObjectOfType<PlayerControl>();
@@ -62,7 +64,7 @@ public class GameManager : MonoBehaviour
         var pos = player.transform.position;
         pos.x = Random.Range(-10f, 10f);
         pos.y += 2;
-        pos.z -= 5;
+        pos.z -= 8;
 
         var go = sampleVehicles[Random.Range(0, sampleVehicles.Length)];
         go = Instantiate(go, pos, player.transform.rotation);
@@ -71,13 +73,30 @@ public class GameManager : MonoBehaviour
         vehicle.Init(player.GetForwardForce());
         vehicle.lifeBecomeZero += fail;
 
-        StartCoroutine(vehicleCheck(vehicle));
+        var corutine = StartCoroutine(vehicleCheck(vehicle));
+        vehicleCoroutiineDic.Add(vehicle, corutine);
     }
 
     private IEnumerator vehicleCheck(VehicleDurity vehicle)
     {
-        //TODO:
-        yield return null;
+        do
+        {
+            yield return null;
+        } while (vehicle.transform.position.z - player.transform.position.z < 1);
+
+        vehicle.ChangeForceRate(1);
+
+        yield return new WaitForSeconds(8);
+
+        vehicle.ChangeForceRate(10);
+
+        vehicleCoroutiineDic.Remove(vehicle);
+    }
+
+    private void rideVehicle(VehicleDurity vehicle)
+    {
+        vehicleCoroutiineDic.Remove(vehicle);
+
     }
 
     private void fail()
