@@ -10,6 +10,8 @@ public class GameManager : MonoBehaviour
     private ResultUI resultUI;
     [SerializeField]
     private GameObject[] sampleVehicles;
+    [SerializeField]
+    private int productCount = 3;
 
     private PlayerControl player;
 
@@ -50,13 +52,25 @@ public class GameManager : MonoBehaviour
 
         if(productTime <= 0 && timeIndex < productTimes.Length)
         {
-            productVehicle();
+            StartCoroutine(productCycle());
             timeIndex++;
             if(timeIndex < productTimes.Length)
             {
                 productTime = productTimes[timeIndex];
             }
         }
+    }
+
+    private IEnumerator productCycle()
+    {
+        var count = productCount;
+
+        do
+        {
+            yield return new WaitForSeconds(Random.Range(.5f, 1.5f));
+            count--;
+            productVehicle();
+        } while (count > 0);
     }
 
     private void productVehicle()
