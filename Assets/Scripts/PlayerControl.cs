@@ -47,9 +47,12 @@ public partial class PlayerControl : MonoBehaviour
         horizonForce -= GetToLeft();
         horizonForce += GetToRight();
 
+        Vector3 direction = (transform.right * horizonForce + transform.forward * forwardForce);
+        rigi.velocity = new Vector3(direction.x * Time.deltaTime, rigi.velocity.y, direction.z);
+
         GetMouseStatus();
         ShowDebugger();
-        rigi.AddForce(Vector3.forward * forwardForce);
+        //rigi.AddForce(Vector3.forward * forwardForce);
     }
 
     private void FixedUpdate()
@@ -70,7 +73,7 @@ public partial class PlayerControl : MonoBehaviour
         else if (Input.GetKey(KeyCode.D))
             _force += lv1;
 
-        return _force * Time.deltaTime;
+        return _force;
     }
 
     float GetToRight()
@@ -83,7 +86,7 @@ public partial class PlayerControl : MonoBehaviour
         else if (Input.GetKey(KeyCode.J))
             _force += lv3;
 
-        return _force * Time.deltaTime;
+        return _force;
     }
 
     void GetMouseStatus()

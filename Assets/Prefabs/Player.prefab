@@ -129,7 +129,7 @@ MonoBehaviour:
   lv2: 2
   lv3: 4
   forwardForce: 5
-  forceScale: 500
-  mousePenalty: 100
+  forceScale: 10
+  mousePenalty: 10000
   debugText: {fileID: 0}
   scanTimer: 1
