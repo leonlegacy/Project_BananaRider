@@ -25,18 +25,26 @@ public class CameraFollowScript : MonoBehaviour
     [SerializeField]
     bool isThirdPerson = false;
 
+    public bool isSmallView = false;
+    public bool isWaterView = false;
+    public Material smallViewMat;
+    public Material waterViewMat;
+
     Vector3 desiredPosition;
 
     private void Awake()
     {
-        //
+        //Subscribe Camera VFX here
     }
 
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.R)) isThirdPerson = !isThirdPerson;
+        if (Input.GetKeyDown(KeyCode.Alpha1)) SmallViewFX();
+        if (Input.GetKeyDown(KeyCode.Alpha2)) WaterViewFX();
+        if (Input.GetKeyDown(KeyCode.Alpha3)) ThirdPersonFX();
 
-        if (isThirdPerson)
+            if (isThirdPerson)
         {
             float h = Input.GetAxis("H");
 
@@ -56,6 +64,46 @@ public class CameraFollowScript : MonoBehaviour
         Vector3 smoothedPosition = Vector3.Lerp(transform.position, desiredPosition, smoothSpeed);
         transform.position = smoothedPosition;
     }
+
+    void OnRenderImage(RenderTexture src, RenderTexture dst)
+    {
+        if (isSmallView)
+        {
+            Graphics.Blit(src, dst, smallViewMat);
+        }
+        else if (isWaterView)
+        {
+            Graphics.Blit(src, dst, waterViewMat);
+        }
+        else
+        {
+            Graphics.Blit(src, dst);
+        }
+    }
+
+
+    void ThirdPersonFX()
+    {
+        SetThirdPersonCamera(true);
+        isSmallView = false;
+        isWaterView = false;
+    }
+
+    void SmallViewFX()
+    {
+        SetThirdPersonCamera(false);
+        isSmallView = true;
+        isWaterView = false;
+    }
+
+    void WaterViewFX()
+    {
+        SetThirdPersonCamera(false);
+        isSmallView = false;
+        isWaterView = true;
+    }
+
+
 
     public void SetThirdPersonCamera(bool _state)
     {
