@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class VechleDurity : MonoBehaviour
+public class VehicleDurity : MonoBehaviour
 {
 
     public event Action lifeBecomeZero;
@@ -19,7 +19,7 @@ public class VechleDurity : MonoBehaviour
         life = maxLife;
     }
 
-    private void Update()
+    protected virtual void Update()
     {
         if (playerRide)
         {

@@ -6,6 +6,8 @@ public class GameManager : MonoBehaviour
 {
     [SerializeField]
     private float[] productTimes = new float[3];
+    [SerializeField]
+    private ResultUI resultUI;
 
     private PlayerControl player;
 
@@ -50,11 +52,11 @@ public class GameManager : MonoBehaviour
 
     private void fail()
     {
-        //TODO
+        resultUI.Show(false);
     }
 
     private void pass()
     {
-        //TODO
+        resultUI.Show(true);
     }
 }
