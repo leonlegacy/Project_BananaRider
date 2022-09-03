@@ -578,7 +578,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 711029566}
   m_LocalRotation: {x: 0.13052616, y: 0, z: 0, w: 0.9914449}
-  m_LocalPosition: {x: 0, y: 1.83, z: 0}
+  m_LocalPosition: {x: 0, y: 3.152, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -600,8 +600,8 @@ MonoBehaviour:
   lv2: 2
   lv3: 4
   forwardForce: 5
-  forceScale: 100
-  mousePenalty: 0
+  forceScale: 10
+  mousePenalty: 1000
   debugText: {fileID: 1544278844}
   scanTimer: 1
 --- !u!1 &1002194147
