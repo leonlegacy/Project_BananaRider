@@ -27,6 +27,11 @@ public class CameraFollowScript : MonoBehaviour
 
     Vector3 desiredPosition;
 
+    private void Awake()
+    {
+        //
+    }
+
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.R)) isThirdPerson = !isThirdPerson;
