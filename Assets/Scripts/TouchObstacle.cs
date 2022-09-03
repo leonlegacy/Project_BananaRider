@@ -1,18 +1,18 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class TouchObstacle : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    public event Action touchObstacle;
+
+    private void OnCollisionEnter(Collision collision)
     {
-        
+        if (collision.gameObject.tag == "Player")
+        {
+            touchObstacle?.Invoke();
+        }
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 }
