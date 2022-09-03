@@ -19,7 +19,7 @@ public class VehicleDurity : MonoBehaviour
         life = maxLife;
     }
 
-    private void Update()
+    protected virtual void Update()
     {
         if (playerRide)
         {
