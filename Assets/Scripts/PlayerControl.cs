@@ -12,11 +12,14 @@ public class PlayerControl : MonoBehaviour
     public float lv3 = 3f;
 
     [SerializeField]
-    float speedVelocity = 5f;
+    public float forwardForce = 5f;
 
     [Header(" ")]
     [SerializeField]
     float forceScale = 10f;
+
+    [SerializeField]
+    float mousePenalty = 100f;
 
     [SerializeField]
     Text debugText;
@@ -26,7 +29,7 @@ public class PlayerControl : MonoBehaviour
 
     float horizonForce = 0;
     bool canApply = false;
-    bool canMove = true;
+    bool canPunish = false;
     Rigidbody rigi;
 
     private void Awake()
@@ -36,31 +39,24 @@ public class PlayerControl : MonoBehaviour
 
     private void Start()
     {
-        //StartCoroutine(ScanKeyTimer());
+        StartCoroutine(SetPunishable());
     }
 
     private void Update()
     {
-        horizonForce -= GetToLeft() * Time.deltaTime;
-        horizonForce += GetToRight() * Time.deltaTime;
+        horizonForce -= GetToLeft();
+        horizonForce += GetToRight();
 
         GetMouseStatus();
-
         ShowDebugger();
-        rigi.velocity = new Vector3(0, -5, speedVelocity);
-        
-        /*
-        Debug.Log("L = " + toLeft);
-        Debug.Log("R = " + toRight);
-        Debug.Log("Force = " + (toRight - toLeft));
-        Debug.Log("canApply = " + canApply);
-        */
+        rigi.AddForce(Vector3.forward * forwardForce);
     }
 
     private void FixedUpdate()
     {
         float force = horizonForce * forceScale;
         rigi.AddForce(Vector3.right * force);
+        MousePunishment();
 
     }
 
@@ -74,7 +70,7 @@ public class PlayerControl : MonoBehaviour
         else if (Input.GetKey(KeyCode.D))
             _force += lv1;
 
-        return _force;
+        return _force * Time.deltaTime;
     }
 
     float GetToRight()
@@ -87,7 +83,7 @@ public class PlayerControl : MonoBehaviour
         else if (Input.GetKey(KeyCode.J))
             _force += lv3;
 
-        return _force;
+        return _force * Time.deltaTime;
     }
 
     void GetMouseStatus()
@@ -99,6 +95,13 @@ public class PlayerControl : MonoBehaviour
         }
     }
 
+    void MousePunishment()
+    {
+        float mx = Input.GetAxis("Mouse X");
+        if(canPunish)
+            rigi.AddForce(Vector3.right * mx * mousePenalty * Random.Range(0.5f, 20f));
+    }
+
     void ShowDebugger()
     {
         debugText.text = //"L = " + toLeft.ToString() + "\n" +
@@ -107,12 +110,15 @@ public class PlayerControl : MonoBehaviour
                         "canApply = " + canApply;
     }
 
-    IEnumerator ScanKeyTimer()
+    IEnumerator SetPunishable()
     {
-        yield return new WaitForSeconds(scanTimer);
+        yield return new WaitForSeconds(1);
 
-        horizonForce -= GetToLeft();
-        horizonForce += GetToRight();
-        StartCoroutine(ScanKeyTimer());
+        canPunish = true;
+    }
+
+    public float GetHorizontalForce()
+    {
+        return horizonForce * forceScale;
     }
 }
