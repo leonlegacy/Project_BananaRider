@@ -11,6 +11,9 @@ public class PlayerControl : MonoBehaviour
     public float lv2 = 2f;
     public float lv3 = 3f;
 
+    [SerializeField]
+    float speedVelocity = 5f;
+
     [Header(" ")]
     [SerializeField]
     float forceScale = 10f;
@@ -18,8 +21,12 @@ public class PlayerControl : MonoBehaviour
     [SerializeField]
     Text debugText;
 
-    float toRight = 0, toLeft = 0;
+    [SerializeField]
+    float scanTimer = 2f;
+
+    float horizonForce = 0;
     bool canApply = false;
+    bool canMove = true;
     Rigidbody rigi;
 
     private void Awake()
@@ -27,17 +34,21 @@ public class PlayerControl : MonoBehaviour
         rigi = GetComponent<Rigidbody>();
     }
 
+    private void Start()
+    {
+        //StartCoroutine(ScanKeyTimer());
+    }
+
     private void Update()
     {
-        toLeft += GetToLeft();
-        toRight += GetToRight();
+        horizonForce -= GetToLeft() * Time.deltaTime;
+        horizonForce += GetToRight() * Time.deltaTime;
+
         GetMouseStatus();
 
-        debugText.text = "L = " + toLeft.ToString() + "\n" +
-                        "R = " + toRight.ToString() + "\n" +
-                        "Force = " + (toRight - toLeft) + "\n" +
-                        "canApply = " + canApply;
-
+        ShowDebugger();
+        rigi.velocity = new Vector3(0, -5, speedVelocity);
+        
         /*
         Debug.Log("L = " + toLeft);
         Debug.Log("R = " + toRight);
@@ -48,7 +59,7 @@ public class PlayerControl : MonoBehaviour
 
     private void FixedUpdate()
     {
-        float force = (toRight - toLeft) * forceScale;
+        float force = horizonForce * forceScale;
         rigi.AddForce(Vector3.right * force);
 
     }
@@ -56,11 +67,11 @@ public class PlayerControl : MonoBehaviour
     float GetToLeft()
     {
         float _force = 0;
-        if (Input.GetKeyDown(KeyCode.A))
+        if (Input.GetKey(KeyCode.A))
             _force += lv3;
-        else if (Input.GetKeyDown(KeyCode.S))
+        else if (Input.GetKey(KeyCode.S))
             _force += lv2;
-        else if (Input.GetKeyDown(KeyCode.D))
+        else if (Input.GetKey(KeyCode.D))
             _force += lv1;
 
         return _force;
@@ -69,11 +80,11 @@ public class PlayerControl : MonoBehaviour
     float GetToRight()
     {
         float _force = 0;
-        if (Input.GetKeyDown(KeyCode.G))
+        if (Input.GetKey(KeyCode.G))
             _force += lv1;
-        else if (Input.GetKeyDown(KeyCode.H))
+        else if (Input.GetKey(KeyCode.H))
             _force += lv2;
-        else if (Input.GetKeyDown(KeyCode.J))
+        else if (Input.GetKey(KeyCode.J))
             _force += lv3;
 
         return _force;
@@ -85,9 +96,23 @@ public class PlayerControl : MonoBehaviour
         if (Input.GetButtonUp("Fire1"))
         {
             canApply = false;
-            toLeft = 0;
-            toRight = 0;
         }
     }
 
+    void ShowDebugger()
+    {
+        debugText.text = //"L = " + toLeft.ToString() + "\n" +
+                        //"R = " + toRight.ToString() + "\n" +
+                        "Force = " + (horizonForce.ToString()) + "\n" +
+                        "canApply = " + canApply;
+    }
+
+    IEnumerator ScanKeyTimer()
+    {
+        yield return new WaitForSeconds(scanTimer);
+
+        horizonForce -= GetToLeft();
+        horizonForce += GetToRight();
+        StartCoroutine(ScanKeyTimer());
+    }
 }
