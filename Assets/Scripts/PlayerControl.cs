@@ -4,7 +4,7 @@ using UnityEngine;
 
 using UnityEngine.UI;
 
-public class PlayerControl : MonoBehaviour
+public partial class PlayerControl : MonoBehaviour
 {
     [Header("Speed Level value")]
     public float lv1 = 1f;
