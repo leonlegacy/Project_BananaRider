@@ -33,6 +33,7 @@ public class VehicleDurity : MonoBehaviour
             if (life <= 0)
             {
                 lifeBecomeZero?.Invoke();
+                Destroy(gameObject);
             }
             else
             {
