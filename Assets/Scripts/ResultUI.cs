@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class ResultUI : MonoBehaviour
 {
@@ -20,5 +21,10 @@ public class ResultUI : MonoBehaviour
         }
 
         gameObject.SetActive(true);
+    }
+
+    public void Again()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 }
