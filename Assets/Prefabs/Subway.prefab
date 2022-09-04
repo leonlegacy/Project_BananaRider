@@ -54,11 +54,11 @@ GameObject:
   m_Component:
   - component: {fileID: 100374324122444180}
   - component: {fileID: 7777695674386756226}
+  - component: {fileID: 3195847833082278430}
   - component: {fileID: 5556863228005528227}
   - component: {fileID: 2457391081481386010}
-  - component: {fileID: 5795827390677415499}
   m_Layer: 0
-  m_Name: Octopus
+  m_Name: Subway
   m_TagString: Vechle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -93,6 +93,22 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &3195847833082278430
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3152909989091871974}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a8a69d36ec52f4b38ab1e098edb6c677, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxLife: 15
+  onwardRate: 1.5
+  horizonRate: 2
+  VehicleSlidingSFX: {fileID: 2457391081481386010}
 --- !u!54 &5556863228005528227
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -119,7 +135,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: e52573eb7d8da40469772cf3ca6f9e62, type: 3}
+  m_audioClip: {fileID: 8300000, guid: eb21013cc4ac8384ca43ad14fcbe1962, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
@@ -205,22 +221,6 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
---- !u!114 &5795827390677415499
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3152909989091871974}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fcd0b8d4cb93645ccaaaf161a2fa213a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  maxLife: 30
-  onwardRate: 1
-  horizonRate: 1.5
-  VehicleSlidingSFX: {fileID: 2457391081481386010}
 --- !u!1001 &3136508838123706950
 PrefabInstance:
   m_ObjectHideFlags: 0

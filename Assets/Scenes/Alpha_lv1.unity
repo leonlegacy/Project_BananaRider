@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657826, g: 0.49641263, b: 0.57481676, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -341,9 +341,9 @@ MonoBehaviour:
   - 5
   resultUI: {fileID: 1526447394}
   sampleVehicles:
-  - {fileID: 5389016333969668916, guid: b940af0f72935426bb68aab26df3465e, type: 3}
-  - {fileID: 5389016333969668916, guid: b940af0f72935426bb68aab26df3465e, type: 3}
-  - {fileID: 5389016333969668916, guid: b940af0f72935426bb68aab26df3465e, type: 3}
+  - {fileID: 3152909989091871974, guid: bdbe2d565a738fd4297777a6892338fc, type: 3}
+  - {fileID: 3152909989091871974, guid: 7d4083879c8df414d832a39c134bf6d2, type: 3}
+  - {fileID: 3152909989091871974, guid: 7f95d89081440204ebde9b54bbd528b8, type: 3}
   productCount: 3
   uiController: {fileID: 1260817867}
 --- !u!1 &137314276
