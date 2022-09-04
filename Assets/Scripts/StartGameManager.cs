@@ -29,6 +29,8 @@ public class StartGameManager : MonoBehaviour
 
     public void StartGame()
     {
+        mainMenu.SetActive(false);
+
         StartCoroutine(ChangeSceneAnimation());
     }
 
