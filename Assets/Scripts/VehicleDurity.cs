@@ -10,6 +10,7 @@ public class VehicleDurity : MonoBehaviour
     public event Action<VehicleDurity> BeRideEvent;
     public event Action<VehicleDurity> DisrideEvent;
 
+    public Sprite icon;
     public float maxLife = 100;
     [Header("«e¶i­¿²v")]
     public float onwardRate = 1;
