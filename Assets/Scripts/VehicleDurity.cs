@@ -11,6 +11,11 @@ public class VehicleDurity : MonoBehaviour
     public event Action<VehicleDurity> DisrideEvent;
 
     public float maxLife = 100;
+    [Header("前進倍率")]
+    public float onwardRate = 1;
+    [Header("左右倍率")]
+    public float horizonRate = 1;
+
     public float life { get; private set; }
     public bool playerRide { get; private set; }
 
