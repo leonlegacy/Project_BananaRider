@@ -1,18 +1,13 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public partial class PlayerControl : MonoBehaviour
 {
-    private VehicleDurity vehicle;
+    public Action<VehicleDurity> RideEvent;
 
-    private void OnTriggerEnter(Collider other)
-    {
-        if(other.tag == "Vechle")
-        {
-            Ride(other.transform.parent.GetComponent<VehicleDurity>());
-        }
-    }
+    private VehicleDurity vehicle;
 
     public void Ride(VehicleDurity newVehicle)
     {
@@ -32,5 +27,7 @@ public partial class PlayerControl : MonoBehaviour
         newVehicle.transform.parent = transform;
 
         vehicle = newVehicle;
+
+        RideEvent?.Invoke(vehicle);
     }
 }
