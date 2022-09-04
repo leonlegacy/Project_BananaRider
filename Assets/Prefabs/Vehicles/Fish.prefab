@@ -217,7 +217,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fcd0b8d4cb93645ccaaaf161a2fa213a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  icon: {fileID: 0}
+  icon: {fileID: 21300000, guid: 90d588d5842d04591a830a99e3855151, type: 3}
   maxLife: 30
   onwardRate: 1
   horizonRate: 1.5
