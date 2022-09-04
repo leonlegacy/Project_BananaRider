@@ -12,6 +12,7 @@ public class TouchObstacle : MonoBehaviour
         if (collision.gameObject.tag == "Player")
         {
             touchObstacle?.Invoke();
+            GetComponent<AudioSource>().Play();
         }
     }
 
