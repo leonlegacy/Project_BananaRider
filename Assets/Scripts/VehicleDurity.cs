@@ -32,6 +32,7 @@ public class VehicleDurity : MonoBehaviour
     {
         collider = GetComponent<Collider>();
         rigidbody = GetComponent<Rigidbody>();
+        VehicleSlidingSFX = GetComponent<AudioSource>();
         life = maxLife;
     }
 
@@ -63,7 +64,7 @@ public class VehicleDurity : MonoBehaviour
         this.forwardForce = forwardForce;
     }
 
-    public void ChangePlayerRide(bool value)
+    public virtual void ChangePlayerRide(bool value)
     {
         playerRide = value;
 

@@ -29,6 +29,11 @@ public partial class PlayerControl : MonoBehaviour
         newVehicle.transform.localRotation = Quaternion.identity; 
         vehicle = newVehicle;
 
+        if(vehicle is OctopusVehicle)
+        {
+            (vehicle as OctopusVehicle).Struggle += SetOctupusForce;
+        }
+
         RideEvent?.Invoke(vehicle);
     }
 }
