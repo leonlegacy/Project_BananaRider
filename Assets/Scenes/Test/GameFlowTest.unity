@@ -341,9 +341,7 @@ MonoBehaviour:
   - 5
   resultUI: {fileID: 1526447394}
   sampleVehicles:
-  - {fileID: 5389016333969668916, guid: b940af0f72935426bb68aab26df3465e, type: 3}
-  - {fileID: 5389016333969668916, guid: b940af0f72935426bb68aab26df3465e, type: 3}
-  - {fileID: 5389016333969668916, guid: b940af0f72935426bb68aab26df3465e, type: 3}
+  - {fileID: 3152909989091871974, guid: bdbe2d565a738fd4297777a6892338fc, type: 3}
   productCount: 3
   uiController: {fileID: 1260817867}
 --- !u!1 &273223089
