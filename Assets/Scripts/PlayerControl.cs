@@ -72,7 +72,6 @@ public partial class PlayerControl : MonoBehaviour
             Overtilt?.Invoke();
 
         GetMouseStatus();
-        ShowDebugger();
         MousePunishment();
     }
 
@@ -80,11 +79,19 @@ public partial class PlayerControl : MonoBehaviour
     {
         switch (other.tag)
         {
-            case "Vechle":
-                Ride(other.transform.parent.GetComponent<VehicleDurity>());
-                break;
             case "Hole":
                 DropHole?.Invoke();
+                break;
+        }
+    }
+
+    private void OnTriggerStay(Collider other)
+    {
+        switch (other.tag)
+        {
+            case "Vechle":
+                if(canApply)
+                    Ride(other.transform.parent.GetComponent<VehicleDurity>());
                 break;
         }
     }

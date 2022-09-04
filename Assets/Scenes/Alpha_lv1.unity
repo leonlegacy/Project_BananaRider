@@ -313,7 +313,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eda78ec45042a074183214f8ddc46207, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  player: {fileID: 0}
+  player: {fileID: 305359729}
   offset: {x: 0, y: 5.5, z: -6.5}
   tpsOffset: {x: 0, y: 1.3, z: -1.3}
   smoothSpeed: 0.125
@@ -546,6 +546,11 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
+--- !u!4 &305359729 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 1186513550998864359, guid: 26a3057988bdf804a9ba11d8638d0ab9, type: 3}
+  m_PrefabInstance: {fileID: 1414195538}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &324433170
 GameObject:
   m_ObjectHideFlags: 0

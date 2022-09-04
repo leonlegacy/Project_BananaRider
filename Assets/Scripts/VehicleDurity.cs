@@ -33,6 +33,7 @@ public class VehicleDurity : MonoBehaviour
         collider = GetComponent<Collider>();
         rigidbody = GetComponent<Rigidbody>();
         VehicleSlidingSFX = GetComponent<AudioSource>();
+        PlaySlidingSFX();
         life = maxLife;
     }
 
@@ -76,16 +77,17 @@ public class VehicleDurity : MonoBehaviour
         }
         else
         {
-            PlaySlidingSFX();
             collider.enabled = false;
             rigidbody.isKinematic = true;
             BeRideEvent?.Invoke(this);
+            
         }
     }
 
     public void PlaySlidingSFX()
     {
-        VehicleSlidingSFX.Play();
+        if(VehicleSlidingSFX!=null)
+            VehicleSlidingSFX.Play();
     }
 
     public void ChangeForceRate(float rate)

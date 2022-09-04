@@ -25,7 +25,7 @@ public partial class PlayerControl : MonoBehaviour
 
         transform.position = pos;
         newVehicle.transform.parent = playerCharacter;
-        //newVehicle.transform.position = pos;
+        //newVehicle.transform.position = new Vector3(transform.position.x, transform.position.y - 0.5f, transform.position.z);
         newVehicle.transform.localRotation = Quaternion.identity; 
         vehicle = newVehicle;
 
