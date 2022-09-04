@@ -9,6 +9,9 @@ public class UIController : MonoBehaviour
     private Image vehicleLife;
 
     [SerializeField]
+    private Image icon;
+
+    [SerializeField]
     private Text timeText;
 
     private float maxLife;
@@ -29,5 +32,10 @@ public class UIController : MonoBehaviour
         int second = time % 60;
 
         timeText.text = minute.ToString() + " : " + second.ToString();
+    }
+
+    public void SetIcon(Sprite sprite)
+    {
+        icon.sprite = sprite;
     }
 }

@@ -53,6 +53,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   vehicleLife: {fileID: 3852038270535585402}
+  icon: {fileID: 3852038269679899088}
   timeText: {fileID: 3852038270280072290}
 --- !u!1 &3852038269420833385
 GameObject:
