@@ -217,6 +217,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fcd0b8d4cb93645ccaaaf161a2fa213a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  icon: {fileID: 0}
   maxLife: 30
   onwardRate: 1
   horizonRate: 1.5
@@ -284,6 +285,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -7511558181221131132, guid: 2e028c9ddb7433940971101234b1e686, type: 3}
+      propertyPath: m_Materials.Array.data[1]
+      value: 
+      objectReference: {fileID: 2100000, guid: f1758bf75e9e4094aa995ce798d2fa8c, type: 2}
     - target: {fileID: 919132149155446097, guid: 2e028c9ddb7433940971101234b1e686, type: 3}
       propertyPath: m_Name
       value: banana

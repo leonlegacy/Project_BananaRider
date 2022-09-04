@@ -38,6 +38,10 @@ public class CameraFollowScript : MonoBehaviour
     private void Awake()
     {
         //Subscribe Camera VFX here (Total 3)
+        VFX_Trigger.current.SmallViewEvent += SetSmallViewFX;
+        VFX_Trigger.current.WaterViewEvent += SetWaterViewFX;
+        VFX_Trigger.current.ThirdPersonEvent += SetThirdPersonFX;
+
     }
 
     private void Update()
@@ -90,6 +94,7 @@ public class CameraFollowScript : MonoBehaviour
         SetThirdPersonCamera(true);
         isSmallView = false;
         isWaterView = false;
+        Invoke("SetNoneVFX", 3);
     }
 
     public void SetSmallViewFX()  //For switching to SmallView
@@ -97,6 +102,8 @@ public class CameraFollowScript : MonoBehaviour
         SetThirdPersonCamera(false);
         isSmallView = true;
         isWaterView = false;
+        smallViewMat.SetFloat("_Amount", 0.3f);
+        Invoke("SetNoneVFX", 3);
     }
 
     public void SetWaterViewFX()  //For switching to WaterView
@@ -104,6 +111,7 @@ public class CameraFollowScript : MonoBehaviour
         SetThirdPersonCamera(false);
         isSmallView = false;
         isWaterView = true;
+        Invoke("SetNoneVFX", 3);
     }
 
     public void SetNoneVFX()   //For turning off all VFX
@@ -121,5 +129,8 @@ public class CameraFollowScript : MonoBehaviour
     private void OnDestroy()
     {
         //Unsubscribe Camera VFX here (Total 3)
+        VFX_Trigger.current.SmallViewEvent -= SetSmallViewFX;
+        VFX_Trigger.current.WaterViewEvent -= SetWaterViewFX;
+        VFX_Trigger.current.ThirdPersonEvent -= SetThirdPersonFX;
     }
 }

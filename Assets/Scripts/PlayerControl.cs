@@ -52,6 +52,7 @@ public partial class PlayerControl : MonoBehaviour
     private void Start()
     {
         StartCoroutine(SetPunishable());
+        
     }
     #endregion
 
