@@ -115,6 +115,12 @@ public partial class PlayerControl : MonoBehaviour
         canPunish = true;
     }
 
+    public void Finish()
+    {
+        rigi.isKinematic = true;
+        GetComponent<Collider>().enabled = false;
+    }
+
     public float GetHorizontalForce()
     {
         return horizonForce * forceScale;

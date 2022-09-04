@@ -138,6 +138,7 @@ public class GameManager : MonoBehaviour
     private void gameEndHandle()
     {
         isGameEnd = true;
+        player.Finish();
         player.enabled = false;
     }
 }
