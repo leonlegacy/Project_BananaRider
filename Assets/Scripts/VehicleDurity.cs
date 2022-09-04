@@ -73,6 +73,7 @@ public class VehicleDurity : MonoBehaviour
         if ( playerRide == false)
         {
             changeLife = null;
+            Disable();
             DisrideEvent?.Invoke(this);
             Destroy(gameObject);
         }
@@ -80,8 +81,7 @@ public class VehicleDurity : MonoBehaviour
         {
             collider.enabled = false;
             rigidbody.isKinematic = true;
-            BeRideEvent?.Invoke(this);
-            
+            BeRideEvent?.Invoke(this);            
         }
     }
 
