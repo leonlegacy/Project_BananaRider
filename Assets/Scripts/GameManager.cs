@@ -12,6 +12,8 @@ public class GameManager : MonoBehaviour
     private GameObject[] sampleVehicles;
     [SerializeField]
     private int productCount = 3;
+    [SerializeField]
+    private UIController uiController;
 
     private PlayerControl player;
 
@@ -25,7 +27,8 @@ public class GameManager : MonoBehaviour
     private void Awake()
     {
         player = FindObjectOfType<PlayerControl>();
-        
+        player.RideEvent += rideHandle;
+
         var obstacles = FindObjectsOfType<TouchObstacle>();
         foreach(var ob in obstacles)
         {
@@ -36,7 +39,6 @@ public class GameManager : MonoBehaviour
         endPoint.hitFinishLine += pass;
 
         productTime = productTimes[timeIndex];
-
     }
 
     private void Start()
@@ -59,6 +61,12 @@ public class GameManager : MonoBehaviour
                 productTime = productTimes[timeIndex];
             }
         }
+    }
+
+    private void rideHandle(VehicleDurity vehicle)
+    {
+        uiController.InitLifeBar(vehicle.maxLife);
+        vehicle.changeLife += uiController.SetVehicleLife;
     }
 
     private IEnumerator productCycle()

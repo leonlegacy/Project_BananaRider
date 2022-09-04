@@ -1,9 +1,12 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public partial class PlayerControl : MonoBehaviour
 {
+    public Action<VehicleDurity> RideEvent;
+
     private VehicleDurity vehicle;
 
     private void OnTriggerEnter(Collider other)
@@ -32,5 +35,7 @@ public partial class PlayerControl : MonoBehaviour
         newVehicle.transform.parent = transform;
 
         vehicle = newVehicle;
+
+        RideEvent?.Invoke(vehicle);
     }
 }

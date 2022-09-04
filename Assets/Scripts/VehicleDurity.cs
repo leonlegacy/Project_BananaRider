@@ -66,6 +66,7 @@ public class VehicleDurity : MonoBehaviour
 
         if ( playerRide == false)
         {
+            changeLife = null;
             DisrideEvent?.Invoke(this);
             Destroy(gameObject);
         }
