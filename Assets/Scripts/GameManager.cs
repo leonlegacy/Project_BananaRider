@@ -45,6 +45,15 @@ public class GameManager : MonoBehaviour
             ob.touchObstacle += fail;
         }
 
+        var cameraFollower = GetComponent<CameraFollowScript>();
+        var vfxTriggers = FindObjectsOfType<VFX_Trigger>();
+        foreach (var triggers in vfxTriggers)
+        {
+            triggers.SmallViewEvent += cameraFollower.SetSmallViewFX;
+            triggers.WaterViewEvent += cameraFollower.SetWaterViewFX;
+            triggers.ThirdPersonEvent += cameraFollower.SetThirdPersonFX;
+        }
+
         var endPoint = FindObjectOfType<FinishLineDetector>();
         endPoint.hitFinishLine += pass;
 
