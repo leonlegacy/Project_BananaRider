@@ -52,7 +52,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 87d7ad015c9654161b50a3100f4b8e86, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  vehicleLife: {fileID: 3852038269679899088}
+  vehicleLife: {fileID: 3852038270535585402}
   timeText: {fileID: 3852038270280072290}
 --- !u!1 &3852038269420833385
 GameObject:
@@ -353,7 +353,7 @@ MonoBehaviour:
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 0
-  m_FillAmount: 0.637
+  m_FillAmount: 0.657
   m_FillClockwise: 1
   m_FillOrigin: 1
   m_UseSpriteMesh: 0
