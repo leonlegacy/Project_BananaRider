@@ -35,15 +35,6 @@ public class CameraFollowScript : MonoBehaviour
 
     #endregion
 
-    private void Awake()
-    {
-        //Subscribe Camera VFX here (Total 3)
-        VFX_Trigger.current.SmallViewEvent += SetSmallViewFX;
-        VFX_Trigger.current.WaterViewEvent += SetWaterViewFX;
-        VFX_Trigger.current.ThirdPersonEvent += SetThirdPersonFX;
-
-    }
-
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.R)) isThirdPerson = !isThirdPerson;
@@ -124,13 +115,5 @@ public class CameraFollowScript : MonoBehaviour
     public void SetThirdPersonCamera(bool _state)   //Set ThirdPerson mode api
     {
         isThirdPerson = _state;
-    }
-
-    private void OnDestroy()
-    {
-        //Unsubscribe Camera VFX here (Total 3)
-        VFX_Trigger.current.SmallViewEvent -= SetSmallViewFX;
-        VFX_Trigger.current.WaterViewEvent -= SetWaterViewFX;
-        VFX_Trigger.current.ThirdPersonEvent -= SetThirdPersonFX;
     }
 }
