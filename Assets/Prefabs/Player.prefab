@@ -133,6 +133,7 @@ MonoBehaviour:
   forceScale: 10
   mousePenalty: 10000
   debugText: {fileID: 0}
+  playerCharacter: {fileID: 111047194150310473}
 --- !u!1001 &6331799415326067746
 PrefabInstance:
   m_ObjectHideFlags: 0

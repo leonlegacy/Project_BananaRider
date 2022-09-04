@@ -24,8 +24,9 @@ public partial class PlayerControl : MonoBehaviour
         pos.y += 1;
 
         transform.position = pos;
-        newVehicle.transform.parent = transform;
-
+        newVehicle.transform.parent = playerCharacter;
+        //newVehicle.transform.position = pos;
+        newVehicle.transform.localRotation = Quaternion.identity; 
         vehicle = newVehicle;
 
         RideEvent?.Invoke(vehicle);

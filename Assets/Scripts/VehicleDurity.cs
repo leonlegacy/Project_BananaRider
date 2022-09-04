@@ -16,6 +16,9 @@ public class VehicleDurity : MonoBehaviour
     [Header("¥ª¥k­¿²v")]
     public float horizonRate = 1;
 
+    [SerializeField]
+    AudioSource VehicleSlidingSFX;
+
     public float life { get; private set; }
     public bool playerRide { get; private set; }
 
@@ -72,10 +75,16 @@ public class VehicleDurity : MonoBehaviour
         }
         else
         {
+            PlaySlidingSFX();
             collider.enabled = false;
             rigidbody.isKinematic = true;
             BeRideEvent?.Invoke(this);
         }
+    }
+
+    public void PlaySlidingSFX()
+    {
+        VehicleSlidingSFX.Play();
     }
 
     public void ChangeForceRate(float rate)
