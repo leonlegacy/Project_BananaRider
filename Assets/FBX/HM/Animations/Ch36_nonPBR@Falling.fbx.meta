@@ -1,14 +1,11 @@
 fileFormatVersion: 2
-guid: d70ce6adb350e0944bdbee8ecbb346cd
+guid: 99421bf88f8c6b44893f1fdb0822f5c6
 ModelImporter:
   serializedVersion: 20200
   internalIDToNameTable:
   - first:
-      74: -9165865403480842816
-    second: Root|0.Targeting Pose
-  - first:
-      74: 2910742486769232160
-    second: Root|Idle
+      74: -203655887218126122
+    second: mixamo.com
   externalObjects: {}
   materials:
     materialImportMode: 2
@@ -94,7 +91,7 @@ ModelImporter:
     globalScale: 1
     rootMotionBoneName: 
     hasTranslationDoF: 0
-    hasExtraRoot: 0
+    hasExtraRoot: 1
     skeletonHasParents: 1
   lastHumanDescriptionAvatarSource: {instanceID: 0}
   autoGenerateAvatarMappingIfUnspecified: 1
