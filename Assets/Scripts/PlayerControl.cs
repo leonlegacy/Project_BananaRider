@@ -6,6 +6,7 @@ using UnityEngine.UI;
 public partial class PlayerControl : MonoBehaviour
 {
     public event System.Action DropHole;
+    public event System.Action Overtilt;
 
     #region Variable region
     [Header("Speed Level value")]
@@ -66,6 +67,9 @@ public partial class PlayerControl : MonoBehaviour
         playerCharacter.rotation = Quaternion.Euler(transform.rotation.x,
                                                 transform.rotation.y,
                                                 Mathf.Clamp(horizonForce / 2f, -80f, 80f));
+
+        if (horizonForce / 2f < -80f || horizonForce / 2f > 80f)
+            Overtilt?.Invoke();
 
         GetMouseStatus();
         ShowDebugger();
