@@ -11,9 +11,10 @@ public partial class PlayerControl : MonoBehaviour
 
     public void Ride(VehicleDurity newVehicle)
     {
-        if(newVehicle == vehicle) { return; }
+        if (newVehicle == vehicle) { return; }
+        if (newVehicle.isDestroy) { return; }
 
-        if(vehicle != null)
+        if (vehicle != null)
         {
             vehicle.ChangePlayerRide(false);
         }

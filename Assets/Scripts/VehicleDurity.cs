@@ -22,6 +22,7 @@ public class VehicleDurity : MonoBehaviour
 
     public float life { get; private set; }
     public bool playerRide { get; private set; }
+    public bool isDestroy { get; private set; }
 
     private Collider collider;
     private Rigidbody rigidbody;
@@ -45,6 +46,7 @@ public class VehicleDurity : MonoBehaviour
             if (life <= 0)
             {
                 lifeBecomeZero?.Invoke();
+                isDestroy = true;
                 Destroy(gameObject);
             }
             else
@@ -73,6 +75,7 @@ public class VehicleDurity : MonoBehaviour
         if ( playerRide == false)
         {
             changeLife = null;
+            isDestroy = true;
             Disable();
             DisrideEvent?.Invoke(this);
             Destroy(gameObject);
