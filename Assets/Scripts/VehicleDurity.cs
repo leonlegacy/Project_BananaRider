@@ -8,8 +8,14 @@ public class VehicleDurity : MonoBehaviour
     public event Action lifeBecomeZero;
     public event Action<float> changeLife;
     public event Action<VehicleDurity> BeRideEvent;
+    public event Action<VehicleDurity> DisrideEvent;
 
     public float maxLife = 100;
+    [Header("前進倍率")]
+    public float onwardRate = 1;
+    [Header("左右倍率")]
+    public float horizonRate = 1;
+
     public float life { get; private set; }
     public bool playerRide { get; private set; }
 
@@ -60,6 +66,8 @@ public class VehicleDurity : MonoBehaviour
 
         if ( playerRide == false)
         {
+            changeLife = null;
+            DisrideEvent?.Invoke(this);
             Destroy(gameObject);
         }
         else
@@ -73,5 +81,19 @@ public class VehicleDurity : MonoBehaviour
     public void ChangeForceRate(float rate)
     {
         forceRate = rate;
+    }
+
+    public void Disable()
+    {
+        collider.enabled = false;
+        rigidbody.isKinematic = true;
+        enabled = false;
+    }
+
+    public void Enable()
+    {
+        collider.enabled = true;
+        rigidbody.isKinematic = false;
+        enabled = true;
     }
 }

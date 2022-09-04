@@ -11,9 +11,16 @@ public class UIController : MonoBehaviour
     [SerializeField]
     private Text timeText;
 
+    private float maxLife;
+
+    public void InitLifeBar(float maxLife)
+    {
+        this.maxLife = maxLife;
+    }
+
     public void SetVehicleLife(float value)
     {
-        vehicleLife.fillAmount = value;
+        vehicleLife.fillAmount = value/maxLife;
     }
 
     public void SetTimeText(int time)

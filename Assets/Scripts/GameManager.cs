@@ -10,20 +10,35 @@ public class GameManager : MonoBehaviour
     private ResultUI resultUI;
     [SerializeField]
     private GameObject[] sampleVehicles;
+    [SerializeField]
+    private int productCount = 3;
+    [SerializeField]
+    private UIController uiController;
 
     private PlayerControl player;
 
     private float productTime;
     private int timeIndex = 0;
 
-    private bool isGameEnd = false;
+    private float gameTime;
 
-    private Dictionary<VehicleDurity, Coroutine> vehicleCoroutiineDic = new Dictionary<VehicleDurity, Coroutine>();
+    private Dictionary<VehicleDurity, Coroutine> vehicleCoroutineDic = new Dictionary<VehicleDurity, Coroutine>();
+
+    private enum Status
+    {
+        Ready,
+        Gaming,
+        End
+    }
+
+    private Status status = Status.Ready;
 
     private void Awake()
     {
         player = FindObjectOfType<PlayerControl>();
-        
+        player.RideEvent += rideHandle;
+        player.DropHole += fail;
+
         var obstacles = FindObjectsOfType<TouchObstacle>();
         foreach(var ob in obstacles)
         {
@@ -34,29 +49,70 @@ public class GameManager : MonoBehaviour
         endPoint.hitFinishLine += pass;
 
         productTime = productTimes[timeIndex];
-
     }
 
     private void Start()
     {
         var vehicle = FindObjectOfType<VehicleDurity>();
-        player.Ride(vehicle);
-        vehicle.lifeBecomeZero += fail;
+        vehicle.Disable();
+        player.Disable();
+
+        StartCoroutine(ready());
     }
 
     private void Update()
     {
-        productTime -= Time.deltaTime;
-
-        if(productTime <= 0 && timeIndex < productTimes.Length)
+        switch (status)
         {
-            productVehicle();
-            timeIndex++;
-            if(timeIndex < productTimes.Length)
-            {
-                productTime = productTimes[timeIndex];
-            }
+            case Status.Gaming:
+                {
+                    gameTime += Time.deltaTime;
+                    uiController.SetTimeText((int)gameTime);
+
+                    productTime -= Time.deltaTime;
+
+                    if (productTime <= 0 && timeIndex < productTimes.Length)
+                    {
+                        StartCoroutine(productCycle());
+                        timeIndex++;
+                        if (timeIndex < productTimes.Length)
+                        {
+                            productTime = productTimes[timeIndex];
+                        }
+                    }
+                }
+                break;
         }
+    }
+
+    private IEnumerator ready()
+    {
+        yield return new WaitForSeconds(3);
+
+        var vehicle = FindObjectOfType<VehicleDurity>(true);
+        player.Enable();
+        vehicle.Enable();
+        player.Ride(vehicle);
+        vehicle.lifeBecomeZero += fail;
+        status = Status.Gaming;
+    }
+
+    private void rideHandle(VehicleDurity vehicle)
+    {
+        uiController.InitLifeBar(vehicle.maxLife);
+        vehicle.changeLife += uiController.SetVehicleLife;
+    }
+
+    private IEnumerator productCycle()
+    {
+        var count = productCount;
+
+        do
+        {
+            yield return new WaitForSeconds(Random.Range(.5f, 1.5f));
+            count--;
+            productVehicle();
+        } while (count > 0);
     }
 
     private void productVehicle()
@@ -72,9 +128,11 @@ public class GameManager : MonoBehaviour
         var vehicle = go.GetComponent<VehicleDurity>();
         vehicle.Init(player.GetForwardForce());
         vehicle.lifeBecomeZero += fail;
+        vehicle.BeRideEvent += vehicleDecheck;
+        vehicle.DisrideEvent += vehicleDecheck;
 
         var corutine = StartCoroutine(vehicleCheck(vehicle));
-        vehicleCoroutiineDic.Add(vehicle, corutine);
+        vehicleCoroutineDic.Add(vehicle, corutine);
     }
 
     private IEnumerator vehicleCheck(VehicleDurity vehicle)
@@ -90,32 +148,44 @@ public class GameManager : MonoBehaviour
 
         vehicle.ChangeForceRate(10);
 
-        vehicleCoroutiineDic.Remove(vehicle);
+        vehicleCoroutineDic.Remove(vehicle);
     }
 
-    private void rideVehicle(VehicleDurity vehicle)
+    private void vehicleDecheck(VehicleDurity vehicle)
     {
-        vehicleCoroutiineDic.Remove(vehicle);
-
+        if (vehicleCoroutineDic.TryGetValue(vehicle, out var cor))
+        {
+            if(cor != null)
+            {
+                StopCoroutine(cor);
+            }
+            vehicleCoroutineDic.Remove(vehicle);
+        }
     }
 
     private void fail()
     {
-        if (isGameEnd) { return; }
+        if (status == Status.End) { return; }
         resultUI.Show(false);
         gameEndHandle();
     }
 
     private void pass()
     {
-        if (isGameEnd) { return; }
+        if (status == Status.End) { return; }
         resultUI.Show(true);
         gameEndHandle();
     }
 
     private void gameEndHandle()
     {
-        isGameEnd = true;
+        status = Status.End;
+        player.Disable();
         player.enabled = false;
+
+        foreach(var v in FindObjectsOfType<VehicleDurity>())
+        {
+            v.Disable();
+        }
     }
 }

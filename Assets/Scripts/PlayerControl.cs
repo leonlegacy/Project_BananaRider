@@ -5,6 +5,8 @@ using UnityEngine.UI;
 
 public partial class PlayerControl : MonoBehaviour
 {
+    public event System.Action DropHole;
+
     [Header("Speed Level value")]
     public float lv1 = 1f;
     public float lv2 = 2f;
@@ -28,10 +30,12 @@ public partial class PlayerControl : MonoBehaviour
     bool canApply = false;
     bool canPunish = false;
     Rigidbody rigi;
+    Collider coll;
 
     private void Awake()
     {
         rigi = GetComponent<Rigidbody>();
+        coll = GetComponent<Collider>();
     }
 
     private void Start()
@@ -56,6 +60,19 @@ public partial class PlayerControl : MonoBehaviour
         //float force = horizonForce * forceScale;
         //rigi.AddForce(Vector3.right * force);
         MousePunishment();
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        switch (other.tag)
+        {
+            case "Vechle":
+                Ride(other.transform.parent.GetComponent<VehicleDurity>());
+                break;
+            case "Hole":
+                DropHole?.Invoke();
+                break;
+        }
     }
 
     float GetToLeft()
@@ -113,6 +130,20 @@ public partial class PlayerControl : MonoBehaviour
         yield return new WaitForSeconds(1);
 
         canPunish = true;
+    }
+
+    public void Disable()
+    {
+        coll.enabled = false;
+        rigi.isKinematic = true;
+        enabled = false;
+    }
+
+    public void Enable()
+    {
+        coll.enabled = true;
+        rigi.isKinematic = false;
+        enabled = true;
     }
 
     public float GetHorizontalForce()
