@@ -1254,7 +1254,7 @@ MeshCollider:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 840437657}
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 13400000, guid: fa34cef1081f02c4fb1f8a41b4898df3, type: 2}
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 4
@@ -1279,7 +1279,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!65 &1002194148
 BoxCollider:
   m_ObjectHideFlags: 0
