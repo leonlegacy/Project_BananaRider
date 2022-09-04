@@ -28,6 +28,7 @@ public class GameManager : MonoBehaviour
     {
         player = FindObjectOfType<PlayerControl>();
         player.RideEvent += rideHandle;
+        player.DropHole += fail;
 
         var obstacles = FindObjectsOfType<TouchObstacle>();
         foreach(var ob in obstacles)

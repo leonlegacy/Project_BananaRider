@@ -5,6 +5,8 @@ using UnityEngine.UI;
 
 public partial class PlayerControl : MonoBehaviour
 {
+    public event System.Action DropHole;
+
     [Header("Speed Level value")]
     public float lv1 = 1f;
     public float lv2 = 2f;
@@ -56,6 +58,19 @@ public partial class PlayerControl : MonoBehaviour
         //float force = horizonForce * forceScale;
         //rigi.AddForce(Vector3.right * force);
         MousePunishment();
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        switch (other.tag)
+        {
+            case "Vechle":
+                Ride(other.transform.parent.GetComponent<VehicleDurity>());
+                break;
+            case "Hole":
+                DropHole?.Invoke();
+                break;
+        }
     }
 
     float GetToLeft()
