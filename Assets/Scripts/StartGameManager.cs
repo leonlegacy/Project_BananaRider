@@ -109,6 +109,6 @@ public class StartGameManager : MonoBehaviour
 
     private void ChangeGameScene()
     {
-        //SceneManager.LoadScene(1);
+        SceneManager.LoadScene(1);
     }
 }
