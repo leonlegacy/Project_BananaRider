@@ -10,11 +10,15 @@ public class VehicleDurity : MonoBehaviour
     public event Action<VehicleDurity> BeRideEvent;
     public event Action<VehicleDurity> DisrideEvent;
 
+    public Sprite icon;
     public float maxLife = 100;
     [Header("前進倍率")]
     public float onwardRate = 1;
     [Header("左右倍率")]
     public float horizonRate = 1;
+
+    [SerializeField]
+    AudioSource VehicleSlidingSFX;
 
     public float life { get; private set; }
     public bool playerRide { get; private set; }
@@ -29,6 +33,8 @@ public class VehicleDurity : MonoBehaviour
     {
         collider = GetComponent<Collider>();
         rigidbody = GetComponent<Rigidbody>();
+        VehicleSlidingSFX = GetComponent<AudioSource>();
+        PlaySlidingSFX();
         life = maxLife;
     }
 
@@ -60,13 +66,14 @@ public class VehicleDurity : MonoBehaviour
         this.forwardForce = forwardForce;
     }
 
-    public void ChangePlayerRide(bool value)
+    public virtual void ChangePlayerRide(bool value)
     {
         playerRide = value;
 
         if ( playerRide == false)
         {
             changeLife = null;
+            Disable();
             DisrideEvent?.Invoke(this);
             Destroy(gameObject);
         }
@@ -74,8 +81,14 @@ public class VehicleDurity : MonoBehaviour
         {
             collider.enabled = false;
             rigidbody.isKinematic = true;
-            BeRideEvent?.Invoke(this);
+            BeRideEvent?.Invoke(this);            
         }
+    }
+
+    public void PlaySlidingSFX()
+    {
+        if(VehicleSlidingSFX!=null)
+            VehicleSlidingSFX.Play();
     }
 
     public void ChangeForceRate(float rate)

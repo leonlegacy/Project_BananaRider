@@ -100,6 +100,7 @@ public class GameManager : MonoBehaviour
     private void rideHandle(VehicleDurity vehicle)
     {
         uiController.InitLifeBar(vehicle.maxLife);
+        uiController.SetIcon(vehicle.icon);
         vehicle.changeLife += uiController.SetVehicleLife;
     }
 

@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class CameraFollowScript : MonoBehaviour
 {
+    #region Variable region
     [SerializeField]
     Transform player;
 
@@ -32,17 +33,19 @@ public class CameraFollowScript : MonoBehaviour
 
     Vector3 desiredPosition;
 
+    #endregion
+
     private void Awake()
     {
-        //Subscribe Camera VFX here
+        //Subscribe Camera VFX here (Total 3)
     }
 
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.R)) isThirdPerson = !isThirdPerson;
-        if (Input.GetKeyDown(KeyCode.Alpha1)) SmallViewFX();
-        if (Input.GetKeyDown(KeyCode.Alpha2)) WaterViewFX();
-        if (Input.GetKeyDown(KeyCode.Alpha3)) ThirdPersonFX();
+        if (Input.GetKeyDown(KeyCode.Alpha1)) SetSmallViewFX();
+        if (Input.GetKeyDown(KeyCode.Alpha2)) SetWaterViewFX();
+        if (Input.GetKeyDown(KeyCode.Alpha3)) SetThirdPersonFX();
 
             if (isThirdPerson)
         {
@@ -82,31 +85,41 @@ public class CameraFollowScript : MonoBehaviour
     }
 
 
-    void ThirdPersonFX()
+    public void SetThirdPersonFX()    //For switching to ThirdPersonView
     {
         SetThirdPersonCamera(true);
         isSmallView = false;
         isWaterView = false;
     }
 
-    void SmallViewFX()
+    public void SetSmallViewFX()  //For switching to SmallView
     {
         SetThirdPersonCamera(false);
         isSmallView = true;
         isWaterView = false;
     }
 
-    void WaterViewFX()
+    public void SetWaterViewFX()  //For switching to WaterView
     {
         SetThirdPersonCamera(false);
         isSmallView = false;
         isWaterView = true;
     }
 
+    public void SetNoneVFX()   //For turning off all VFX
+    {
+        SetThirdPersonCamera(false);
+        isSmallView = false;
+        isWaterView = false;
+    }
 
-
-    public void SetThirdPersonCamera(bool _state)
+    public void SetThirdPersonCamera(bool _state)   //Set ThirdPerson mode api
     {
         isThirdPerson = _state;
+    }
+
+    private void OnDestroy()
+    {
+        //Unsubscribe Camera VFX here (Total 3)
     }
 }

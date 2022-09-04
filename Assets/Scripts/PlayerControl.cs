@@ -6,7 +6,9 @@ using UnityEngine.UI;
 public partial class PlayerControl : MonoBehaviour
 {
     public event System.Action DropHole;
+    public event System.Action Overtilt;
 
+    #region Variable region
     [Header("Speed Level value")]
     public float lv1 = 1f;
     public float lv2 = 2f;
@@ -25,13 +27,22 @@ public partial class PlayerControl : MonoBehaviour
     [SerializeField]
     Text debugText;
 
+    [SerializeField]
+    Transform playerCharacter;
+
 
     float horizonForce = 0;
+    float octupusForce = 0;
     bool canApply = false;
     bool canPunish = false;
     Rigidbody rigi;
+
     Collider coll;
 
+    #endregion
+
+
+    #region Awake and Start region
     private void Awake()
     {
         rigi = GetComponent<Rigidbody>();
@@ -42,23 +53,25 @@ public partial class PlayerControl : MonoBehaviour
     {
         StartCoroutine(SetPunishable());
     }
+    #endregion
 
     private void Update()
     {
         horizonForce -= GetToLeft();
         horizonForce += GetToRight();
+        horizonForce += octupusForce;
 
         Vector3 direction = (transform.right * horizonForce * forceScale + transform.forward * forwardForce);
         rigi.velocity = new Vector3(direction.x * Time.deltaTime, rigi.velocity.y, direction.z);
 
-        GetMouseStatus();
-        ShowDebugger();
-    }
+        playerCharacter.rotation = Quaternion.Euler(transform.rotation.x,
+                                                transform.rotation.y,
+                                                Mathf.Clamp(horizonForce / 2f, -80f, 80f));
 
-    private void FixedUpdate()
-    {
-        //float force = horizonForce * forceScale;
-        //rigi.AddForce(Vector3.right * force);
+        if (horizonForce / 2f < -80f || horizonForce / 2f > 80f)
+            Overtilt?.Invoke();
+
+        GetMouseStatus();
         MousePunishment();
     }
 
@@ -66,16 +79,24 @@ public partial class PlayerControl : MonoBehaviour
     {
         switch (other.tag)
         {
-            case "Vechle":
-                Ride(other.transform.parent.GetComponent<VehicleDurity>());
-                break;
             case "Hole":
                 DropHole?.Invoke();
                 break;
         }
     }
 
-    float GetToLeft()
+    private void OnTriggerStay(Collider other)
+    {
+        switch (other.tag)
+        {
+            case "Vechle":
+                if(canApply)
+                    Ride(other.transform.parent.GetComponent<VehicleDurity>());
+                break;
+        }
+    }
+
+    float GetToLeft()   //Get the force to Left
     {
         float _force = 0;
         if (Input.GetKey(KeyCode.A))
@@ -88,7 +109,7 @@ public partial class PlayerControl : MonoBehaviour
         return _force;
     }
 
-    float GetToRight()
+    float GetToRight()  //Get the force to Right
     {
         float _force = 0;
         if (Input.GetKey(KeyCode.G))
@@ -125,12 +146,24 @@ public partial class PlayerControl : MonoBehaviour
                         "canApply = " + canApply;
     }
 
-    IEnumerator SetPunishable() //Not in use
+    IEnumerator SetPunishable() //Set mouse punishment to true in 1 second
     {
         yield return new WaitForSeconds(1);
 
         canPunish = true;
     }
+    IEnumerator SetOctupusPunishable()
+    {
+        yield return new WaitForSeconds(3);
+        octupusForce = 0;
+    }
+
+    public void SetOctupusForce(float _force)   //Call to set Octupus force and start punishment
+    {
+        octupusForce = _force;
+        StartCoroutine(SetOctupusPunishable());
+    }
+
 
     public void Disable()
     {
@@ -146,12 +179,12 @@ public partial class PlayerControl : MonoBehaviour
         enabled = true;
     }
 
-    public float GetHorizontalForce()
+    public float GetHorizontalForce()   //Get the total force for horizontal movement
     {
         return horizonForce * forceScale;
     }
 
-    public float GetForwardForce()
+    public float GetForwardForce()  //Get the forward force 
     {
         return forwardForce;
     }
