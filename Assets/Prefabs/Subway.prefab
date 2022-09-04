@@ -105,9 +105,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a8a69d36ec52f4b38ab1e098edb6c677, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxLife: 10
-  onwardRate: 1
-  horizonRate: 1
+  maxLife: 15
+  onwardRate: 1.5
+  horizonRate: 2
   VehicleSlidingSFX: {fileID: 2457391081481386010}
 --- !u!54 &5556863228005528227
 Rigidbody:
@@ -135,7 +135,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: 64df4a0e50d649e4eb6f7395fda7338e, type: 3}
+  m_audioClip: {fileID: 8300000, guid: eb21013cc4ac8384ca43ad14fcbe1962, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1

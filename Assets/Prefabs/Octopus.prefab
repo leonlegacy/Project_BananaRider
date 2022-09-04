@@ -119,7 +119,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: 64df4a0e50d649e4eb6f7395fda7338e, type: 3}
+  m_audioClip: {fileID: 8300000, guid: e52573eb7d8da40469772cf3ca6f9e62, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
@@ -217,10 +217,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fcd0b8d4cb93645ccaaaf161a2fa213a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxLife: 100
+  maxLife: 30
   onwardRate: 1
-  horizonRate: 1
-  VehicleSlidingSFX: {fileID: 0}
+  horizonRate: 1.5
+  VehicleSlidingSFX: {fileID: 2457391081481386010}
 --- !u!1001 &3136508838123706950
 PrefabInstance:
   m_ObjectHideFlags: 0
