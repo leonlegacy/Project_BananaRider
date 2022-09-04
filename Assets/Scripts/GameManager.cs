@@ -20,6 +20,8 @@ public class GameManager : MonoBehaviour
     private float productTime;
     private int timeIndex = 0;
 
+    private float gameTime;
+
     private Dictionary<VehicleDurity, Coroutine> vehicleCoroutineDic = new Dictionary<VehicleDurity, Coroutine>();
 
     private enum Status
@@ -64,6 +66,9 @@ public class GameManager : MonoBehaviour
         {
             case Status.Gaming:
                 {
+                    gameTime += Time.deltaTime;
+                    uiController.SetTimeText((int)gameTime);
+
                     productTime -= Time.deltaTime;
 
                     if (productTime <= 0 && timeIndex < productTimes.Length)
