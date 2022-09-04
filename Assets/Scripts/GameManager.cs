@@ -20,9 +20,16 @@ public class GameManager : MonoBehaviour
     private float productTime;
     private int timeIndex = 0;
 
-    private bool isGameEnd = false;
-
     private Dictionary<VehicleDurity, Coroutine> vehicleCoroutineDic = new Dictionary<VehicleDurity, Coroutine>();
+
+    private enum Status
+    {
+        Ready,
+        Gaming,
+        End
+    }
+
+    private Status status = Status.Ready;
 
     private void Awake()
     {
@@ -45,23 +52,44 @@ public class GameManager : MonoBehaviour
     private void Start()
     {
         var vehicle = FindObjectOfType<VehicleDurity>();
-        player.Ride(vehicle);
-        vehicle.lifeBecomeZero += fail;
+        vehicle.Disable();
+        player.Disable();
+
+        StartCoroutine(ready());
     }
 
     private void Update()
     {
-        productTime -= Time.deltaTime;
-
-        if(productTime <= 0 && timeIndex < productTimes.Length)
+        switch (status)
         {
-            StartCoroutine(productCycle());
-            timeIndex++;
-            if(timeIndex < productTimes.Length)
-            {
-                productTime = productTimes[timeIndex];
-            }
+            case Status.Gaming:
+                {
+                    productTime -= Time.deltaTime;
+
+                    if (productTime <= 0 && timeIndex < productTimes.Length)
+                    {
+                        StartCoroutine(productCycle());
+                        timeIndex++;
+                        if (timeIndex < productTimes.Length)
+                        {
+                            productTime = productTimes[timeIndex];
+                        }
+                    }
+                }
+                break;
         }
+    }
+
+    private IEnumerator ready()
+    {
+        yield return new WaitForSeconds(3);
+
+        var vehicle = FindObjectOfType<VehicleDurity>(true);
+        player.Enable();
+        vehicle.Enable();
+        player.Ride(vehicle);
+        vehicle.lifeBecomeZero += fail;
+        status = Status.Gaming;
     }
 
     private void rideHandle(VehicleDurity vehicle)
@@ -132,22 +160,27 @@ public class GameManager : MonoBehaviour
 
     private void fail()
     {
-        if (isGameEnd) { return; }
+        if (status == Status.End) { return; }
         resultUI.Show(false);
         gameEndHandle();
     }
 
     private void pass()
     {
-        if (isGameEnd) { return; }
+        if (status == Status.End) { return; }
         resultUI.Show(true);
         gameEndHandle();
     }
 
     private void gameEndHandle()
     {
-        isGameEnd = true;
-        player.Finish();
+        status = Status.End;
+        player.Disable();
         player.enabled = false;
+
+        foreach(var v in FindObjectsOfType<VehicleDurity>())
+        {
+            v.Disable();
+        }
     }
 }

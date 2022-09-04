@@ -82,4 +82,18 @@ public class VehicleDurity : MonoBehaviour
     {
         forceRate = rate;
     }
+
+    public void Disable()
+    {
+        collider.enabled = false;
+        rigidbody.isKinematic = true;
+        enabled = false;
+    }
+
+    public void Enable()
+    {
+        collider.enabled = true;
+        rigidbody.isKinematic = false;
+        enabled = true;
+    }
 }
