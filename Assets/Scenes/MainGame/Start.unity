@@ -608,7 +608,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: 97b6ef2b5902cc742a554b5c04898ea5, type: 3}
+  m_audioClip: {fileID: 8300000, guid: 6057ede508b2c7944819932b02a2711e, type: 3}
   m_PlayOnAwake: 1
   m_Volume: 1
   m_Pitch: 1
@@ -2011,7 +2011,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "\u6211\u662F\u904A\u6232\u540D\u7A31"
+  m_Text: Banana Rider
 --- !u!222 &1621753782
 CanvasRenderer:
   m_ObjectHideFlags: 0
