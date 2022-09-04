@@ -84,7 +84,7 @@ public class StartGameManager : MonoBehaviour
         {
             nowTimer += Time.deltaTime;
             changeSceneAmount =  1 - Mathf.Lerp(0,1,nowTimer / changeSceneAnimateDuration);
-            Debug.Log(changeSceneAmount);
+            //Debug.Log(changeSceneAmount);
 
             if (nowTimer > changeSceneAnimateDuration)
             {

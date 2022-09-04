@@ -10,7 +10,7 @@ public class CountDown : MonoBehaviour
 
     private void Start()
     {
-        time = 3;
+        time = 3.5f;
     }
 
     void Update()
