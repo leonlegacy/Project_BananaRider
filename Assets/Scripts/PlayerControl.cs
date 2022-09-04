@@ -33,6 +33,10 @@ public partial class PlayerControl : MonoBehaviour
 
     float horizonForce = 0;
     float octupusForce = 0;
+
+    float vehicleHorizonBoost = 1f;
+    float vehicleForwardBoost = 1f;
+
     bool canApply = false;
     bool canPunish = false;
     Rigidbody rigi;
@@ -62,7 +66,7 @@ public partial class PlayerControl : MonoBehaviour
         horizonForce += GetToRight();
         horizonForce += octupusForce;
 
-        Vector3 direction = (transform.right * horizonForce * forceScale + transform.forward * forwardForce);
+        Vector3 direction = (transform.right * horizonForce * vehicleHorizonBoost * forceScale + transform.forward * vehicleForwardBoost * forwardForce);
         rigi.velocity = new Vector3(direction.x * Time.deltaTime, rigi.velocity.y, direction.z);
 
         playerCharacter.rotation = Quaternion.Euler(transform.rotation.x,
@@ -91,8 +95,12 @@ public partial class PlayerControl : MonoBehaviour
         switch (other.tag)
         {
             case "Vechle":
-                if(canApply)
+                if (canApply)
+                {
                     Ride(other.transform.parent.GetComponent<VehicleDurity>());
+                    vehicleHorizonBoost = other.transform.parent.GetComponent<VehicleDurity>().horizonRate;
+                    vehicleForwardBoost = other.transform.parent.GetComponent<VehicleDurity>().onwardRate;
+                }
                 break;
         }
     }
